@@ -4,44 +4,50 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.develop.lokalinterntask.data.api.JobApiImpl
+import com.develop.lokalinterntask.data.repository.BookmarkRepository
+import com.develop.lokalinterntask.data.repository.JobRepository
 import com.develop.lokalinterntask.ui.theme.LokalInternTaskTheme
+import com.develop.lokalinterntask.ui.widgets.BottomBar
+import com.develop.lokalinterntask.viewmodel.MainViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            LokalInternTaskTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+            LokalApp()
         }
     }
 }
 
+@Preview
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+fun LokalApp() {
+    val jobApi = JobApiImpl()
+    val jobRepository = JobRepository(jobApi)
+    val bookmarkRepository = BookmarkRepository()
+    MainViewModel(jobRepository, bookmarkRepository)
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
     LokalInternTaskTheme {
-        Greeting("Android")
+        Scaffold(
+            bottomBar = {
+                BottomBar()
+            }
+        ) { innerPadding ->
+            Column(
+                modifier = Modifier
+                    .padding(innerPadding)
+            ) {
+                Text("gdfjhgds")
+            }
+        }
     }
 }
