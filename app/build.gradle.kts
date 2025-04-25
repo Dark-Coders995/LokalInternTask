@@ -2,13 +2,18 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.realm.kotlin)
     alias(libs.plugins.kotlinx.serialization)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
+    id("androidx.room")
 }
 
 android {
     namespace = "com.develop.lokalinterntask"
     compileSdk = 35
+    room {
+        schemaDirectory("$projectDir/schemas")
+    }
 
     defaultConfig {
         applicationId = "com.develop.lokalinterntask"
@@ -62,10 +67,18 @@ dependencies {
 
 
     // App Specific Requirements
-    implementation(libs.realm.base) // For Local Storage
+    implementation(libs.bundles.room)
+    ksp(libs.room.compiler)
     implementation(libs.bundles.koin)
     implementation(libs.bundles.ktor)
+    implementation(libs.bundles.retrofit)
     implementation(libs.bundles.coroutines)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.hilt.android)
+    implementation(libs.hilt.compose)
+    ksp(libs.hilt.compiler)
+    implementation(libs.coil)
+    implementation(libs.coil.network)
+    implementation(libs.extended.icons)
 
 }

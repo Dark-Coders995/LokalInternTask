@@ -1,10 +1,5 @@
 package com.develop.lokalinterntask.data.model
 
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.builtins.ListSerializer
-import kotlinx.serialization.json.Json
-
-@Serializable
 data class ResultModal(
     val id: Long,
     val amount: String,
@@ -45,53 +40,42 @@ data class ResultModal(
         return this.id != 0L
     }
 
-}
+    fun toBookmarkJob(): BookmarkJob {
 
-fun ResultModal.toBookmarkJob(): BookmarkJob {
-    return BookmarkJob().apply {
-        id = this@toBookmarkJob.id
-        amount = this@toBookmarkJob.amount
-        button_text = this@toBookmarkJob.button_text
-        company_name = this@toBookmarkJob.company_name
-        content = this@toBookmarkJob.content
-        created_on = this@toBookmarkJob.created_on
-        custom_link = this@toBookmarkJob.custom_link
-        expire_on = this@toBookmarkJob.expire_on
-        fb_shares = this@toBookmarkJob.fb_shares
-        fees_charged = this@toBookmarkJob.fees_charged
-        fees_text = this@toBookmarkJob.fees_text
-        is_applied = this@toBookmarkJob.is_applied
-        job_category = this@toBookmarkJob.job_category
-        job_hours = this@toBookmarkJob.job_hours
-        job_location_slug = this@toBookmarkJob.job_location_slug
-        job_role = this@toBookmarkJob.job_role
-        num_applications = this@toBookmarkJob.num_applications
-        openings_count = this@toBookmarkJob.openings_count
-        other_details = this@toBookmarkJob.other_details
-        premium_till = this@toBookmarkJob.premium_till
-        salary_max = this@toBookmarkJob.salary_max
-        salary_min = this@toBookmarkJob.salary_min
-        shares = this@toBookmarkJob.shares
-        title = this@toBookmarkJob.title
-        updated_on = this@toBookmarkJob.updated_on
-        views = this@toBookmarkJob.views
-        whatsapp_no = this@toBookmarkJob.whatsapp_no
-
-        contact_preference_preference = contact_preference.preference
-        contact_preference_end_time = contact_preference.preferred_call_end_time
-        contact_preference_start_time = contact_preference.preferred_call_start_time
-        contact_preference_whatsapp_link = contact_preference.whatsapp_link
-
-        primary_experience = primary_details.Experience
-        primary_fees_charged = primary_details.Fees_Charged
-        primary_job_type = primary_details.Job_Type
-        primary_place = primary_details.Place
-        primary_qualification = primary_details.Qualification
-        primary_salary = primary_details.Salary
-
-        job_tags_json = Json.encodeToString(ListSerializer(JobTag.serializer()), job_tags)
-        creatives_json = Json.encodeToString(ListSerializer(Creative.serializer()), creatives)
-        V3_json = Json.encodeToString(ListSerializer(V3.serializer()), contentV3.V3)
+        return BookmarkJob(
+            id = id,
+            amount = amount,
+            button_text = button_text,
+            company_name = company_name,
+            content = content,
+            created_on = created_on,
+            custom_link = custom_link,
+            expire_on = expire_on,
+            fb_shares = fb_shares,
+            fees_charged = fees_charged,
+            fees_text = fees_text,
+            is_applied = is_applied,
+            job_category = job_category,
+            job_hours = job_hours,
+            job_location_slug = job_location_slug,
+            job_role = job_role,
+            num_applications = num_applications,
+            openings_count = openings_count,
+            other_details = other_details,
+            premium_till = premium_till,
+            salary_max = salary_max,
+            salary_min = salary_min,
+            shares = shares,
+            title = title,
+            updated_on = updated_on,
+            views = views,
+            whatsapp_no = whatsapp_no,
+            contact_preference = contact_preference,
+            primary_details = primary_details,
+            job_tags = job_tags,
+            creatives = creatives,
+            V3 = contentV3.V3
+        )
     }
-}
 
+}

@@ -1,9 +1,5 @@
 package com.develop.lokalinterntask.data.model
 
-import kotlinx.serialization.Serializable
-
-
-@Serializable
 data class V3(
     val field_key: String,
     val field_name: String,

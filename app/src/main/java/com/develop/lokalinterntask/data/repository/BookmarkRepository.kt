@@ -1,39 +1,24 @@
 package com.develop.lokalinterntask.data.repository
 
 import com.develop.lokalinterntask.data.model.BookmarkJob
-import io.realm.kotlin.Realm
-import io.realm.kotlin.RealmConfiguration
-import io.realm.kotlin.ext.query
+import com.develop.lokalinterntask.data.model.BookmarkJobDao
+
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class BookmarkRepository {
 
-    private val realm: Realm
+class BookmarkRepository @Inject constructor(
+    private val bookmarkJobDao: BookmarkJobDao
+) {
 
-    init {
-        val config =
-            RealmConfiguration.create(schema = setOf(BookmarkJob::class)) // Add other models too
-        realm = Realm.open(config)
-    }
-
-    // Create
     suspend fun insertBookmarkJob(bookmarkJob: BookmarkJob) {
-        realm.write {
-            copyToRealm(bookmarkJob)
-        }
+        bookmarkJobDao.insertBookmarkJob(bookmarkJob)
     }
 
-    // Read
-    fun getAllBookmarkJobs(): Flow<List<BookmarkJob>> {
-        return realm.query<BookmarkJob>().asFlow().map { it.list }
-    }
+    fun getAllBookmarkJobs(): Flow<List<BookmarkJob>> = bookmarkJobDao.getAllBookmarkJobs()
 
-    // Delete
     suspend fun deleteBookmarkJob(bookmarkJob: BookmarkJob) {
-        realm.write {
-            val job = query<BookmarkJob>("id == $0", bookmarkJob.id).first().find()
-            job?.let { delete(it) }
-        }
+        bookmarkJobDao.deleteBookmarkJob(bookmarkJob)
     }
+
 }

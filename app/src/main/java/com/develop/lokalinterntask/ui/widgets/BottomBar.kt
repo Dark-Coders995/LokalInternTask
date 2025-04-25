@@ -15,30 +15,36 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.develop.lokalinterntask.R
+import com.develop.lokalinterntask.ui.navigation.NavRoutes
 
 
-@Preview
 @Composable
-fun BottomBar() {
-    var selected by remember { mutableStateOf("job") }
+fun BottomBar(
+    modifier: Modifier = Modifier,
+    navController: NavController
+) {
+    val backStackEntry by navController.currentBackStackEntryAsState()
+    var selected = when (backStackEntry?.destination?.route) {
+        NavRoutes.Bookmark.route -> "bookmarks"
+        else -> "job"
+    }
+
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(bottom = 24.dp), // makes it float a bit
+            .padding(bottom = 24.dp),
         contentAlignment = Alignment.BottomCenter
     ) {
         Surface(
             modifier = Modifier
-                .fillMaxWidth(0.9f) // make it pill-shaped
+                .fillMaxWidth(0.9f)
                 .height(70.dp),
             color = MaterialTheme.colorScheme.background,
             shape = RoundedCornerShape(45.dp),
@@ -51,7 +57,11 @@ fun BottomBar() {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 IconButton(onClick = {
-                    selected = "job"
+                    navController.navigate(NavRoutes.Job.route) {
+                        popUpTo(navController.graph.startDestinationId) { saveState = true }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
                 }) {
                     Icon(
                         painter = if (selected == "job") {
@@ -64,7 +74,11 @@ fun BottomBar() {
                     )
                 }
                 IconButton(onClick = {
-                    selected = "bookmarks"
+                    navController.navigate(NavRoutes.Bookmark.route) {
+                        popUpTo(navController.graph.startDestinationId) { saveState = true }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
                 }) {
                     Icon(
                         painter = if (selected == "bookmarks") {

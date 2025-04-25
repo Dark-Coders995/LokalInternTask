@@ -8,11 +8,17 @@ espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.10.1"
 composeBom = "2025.04.01"
-realm = "2.3.0"
+realm = "3.0.0"
 koin = "4.0.2"
 kotlinxCoroutines = "1.10.1"
 ktor = "3.1.2"
 nav_version = "2.8.9"
+room_version = "2.7.1"
+ksp = "2.1.20-2.0.0"
+retrofit = "2.11.0"
+hilt = "2.56.2"
+hilt_compose = "1.2.0"
+coil = "3.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -44,6 +50,19 @@ ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room_version" }
+room-paging = { module = "androidx.room:room-paging", version.ref = "room_version" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "room_version" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "room_version" }
+
+android-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
+hilt-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt_compose" }
+coil = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
+coil-network = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil" }
+extended-icons = { group = "androidx.compose.material", name = "material-icons-extended", version = "1.7.8" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -51,6 +70,9 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 realm-kotlin = { id = "io.realm.kotlin", version.ref = "realm"}
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+
 
 
 
@@ -59,3 +81,5 @@ koin = ["koin-core", "koin-android", "koin-androidx-compose"]
 ktor = ["ktor-client-core", "ktor-client-android", "ktor-client-content-negotiation",
     "ktor-serialization-kotlinx-json" , "ktor-client-cio"]
 coroutines = ["kotlinx-coroutines-core", "kotlinx-coroutines-android"]
+room = ["room-runtime", "room-paging", "room-ktx"]
+retrofit = ["android-retrofit", "gson"]

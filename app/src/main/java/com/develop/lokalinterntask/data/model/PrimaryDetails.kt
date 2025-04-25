@@ -1,8 +1,5 @@
 package com.develop.lokalinterntask.data.model
 
-import kotlinx.serialization.Serializable
-
-@Serializable
 data class PrimaryDetails(
     val Experience: String,
     val Fees_Charged: String,
